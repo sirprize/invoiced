@@ -1,0 +1,17 @@
+{
+    "name": "sirprize/invoiced",
+    "type": "library",
+    "description": "Totals, subtotals, linetotals, VAT-calculations and proper rounding for invoices.",
+    "keywords": ["invoices", "VAT", "rounding"],
+    "homepage": "https://github.com/sirprize/invoiced",
+    "license": "MIT",
+    "authors": [
+        { "name": "Christian Hoegl", "email": "chrigu@sirprize.me" }
+    ],
+    "autoload": {
+        "psr-0": { "Sirprize\\Invoiced": "lib/" }
+    },
+    "require": {
+        "php": ">=5.3.2"
+    }
+}
