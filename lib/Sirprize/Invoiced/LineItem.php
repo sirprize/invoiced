@@ -34,6 +34,16 @@ class LineItem
         return $this->priceIncludesVat;
     }
 
+    public function getVatRate()
+    {
+        return $this->vatRate;
+    }
+
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
     public function getUnitPrice()
     {
         if ($this->priceIncludesVat)

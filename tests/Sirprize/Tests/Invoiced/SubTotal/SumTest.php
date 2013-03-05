@@ -12,7 +12,7 @@ use Sirprize\Invoiced\LineItem;
 use Sirprize\Invoiced\Total;
 use Sirprize\Invoiced\SubTotal\LineItem as SubTotalLineItem;
 use Sirprize\Invoiced\SubTotal\Sum as SubTotalSum;
-use Sirprize\Invoiced\SubTotal\PriceCompound;
+use Sirprize\Invoiced\SubTotal\PriceSummary;
 
 class SumTest extends \PHPUnit_Framework_TestCase
 {
@@ -30,10 +30,10 @@ class SumTest extends \PHPUnit_Framework_TestCase
         $subTotalSum = new SubTotalSum();
 
         $subTotalSum
-            ->addLineItem(new SubTotalLineItem(new PriceCompound(1000, 220), 3))
-            ->addLineItem(new SubTotalLineItem(new PriceCompound(3000, 500), 10))
+            ->addLineItem(new SubTotalLineItem(new PriceSummary(1000, 220), 3))
+            ->addLineItem(new SubTotalLineItem(new PriceSummary(3000, 500), 10))
         ;
 
-        $this->assertEquals($total->getPrice()->getGrossAmount(), $subTotalSum->getPriceCompound()->getFinalAmount(), "", DELTA);
+        $this->assertEquals($total->getPrice()->getGrossAmount(), $subTotalSum->getPriceSummary()->getFinalAmount(), "", DELTA);
     }
 }

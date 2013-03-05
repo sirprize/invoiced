@@ -9,12 +9,12 @@
 namespace Sirprize\Invoiced\SubTotal;
 
 /**
- * PriceCompound represents price components in one compound.
+ * PriceSummary represents a summary of the various amounts making up a price.
  *
  * @author Christian Hoegl <chrigu@sirprize.me>
  */
 
-class PriceCompound
+class PriceSummary implements PriceSummaryInterface
 {
     protected $baseAmount = 0;
     protected $discountAmount = 0;

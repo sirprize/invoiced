@@ -14,7 +14,8 @@ require_once __DIR__ . '/../lib/Sirprize/Invoiced/Price.php';
 
 require_once __DIR__ . '/../lib/Sirprize/Invoiced/SubTotal/LineItem.php';
 require_once __DIR__ . '/../lib/Sirprize/Invoiced/SubTotal/Sum.php';
-require_once __DIR__ . '/../lib/Sirprize/Invoiced/SubTotal/PriceCompound.php';
+require_once __DIR__ . '/../lib/Sirprize/Invoiced/SubTotal/PriceSummaryInterface.php';
+require_once __DIR__ . '/../lib/Sirprize/Invoiced/SubTotal/PriceSummary.php';
 
 require_once __DIR__ . '/../lib/Sirprize/Invoiced/Discount/Resolver.php';
 require_once __DIR__ . '/../lib/Sirprize/Invoiced/Discount/RuleInterface.php';

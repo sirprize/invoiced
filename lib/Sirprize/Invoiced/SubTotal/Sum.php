@@ -9,7 +9,7 @@
 namespace Sirprize\Invoiced\SubTotal;
 
 /**
- * Sum represents a sum of price compounds.
+ * Sum sums up a set of subtotal-lineitems.
  *
  * @author Christian Hoegl <chrigu@sirprize.me>
  */
@@ -24,17 +24,22 @@ class Sum
         return $this;
     }
 
-    public function getPriceCompound()
+    public function getLineItems()
+    {
+        return $this->lineItems;
+    }
+
+    public function getPriceSummary()
     {
         $baseTotal = 0;
         $discountTotal = 0;
 
         foreach($this->lineItems as $lineItem)
         {
-            $baseTotal += $lineItem->getPriceCompound()->getBaseAmount();
-            $discountTotal += $lineItem->getPriceCompound()->getDiscountAmount();
+            $baseTotal += $lineItem->getPriceSummary()->getBaseAmount();
+            $discountTotal += $lineItem->getPriceSummary()->getDiscountAmount();
         }
 
-        return new PriceCompound($baseTotal, $discountTotal);
+        return new PriceSummary($baseTotal, $discountTotal);
     }
 }

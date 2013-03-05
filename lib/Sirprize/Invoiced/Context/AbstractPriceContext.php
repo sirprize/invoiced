@@ -6,7 +6,7 @@
  * (c) Christian Hoegl <chrigu@sirprize.me>
  */
 
-namespace Sirprize\Invoiced;
+namespace Sirprize\Invoiced\Context;
 
 /**
  * AbstractPriceContext.

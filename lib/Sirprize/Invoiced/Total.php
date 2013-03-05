@@ -34,6 +34,11 @@ class Total
         return $this;
     }
 
+    public function getLineItems()
+    {
+        return $this->lineItems;
+    }
+
     public function getPrice()
     {
         $grossAmount = 0;
