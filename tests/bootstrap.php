@@ -19,5 +19,3 @@ require_once __DIR__ . '/../lib/Sirprize/Invoiced/SubTotal/PriceSummary.php';
 
 require_once __DIR__ . '/../lib/Sirprize/Invoiced/Discount/Resolver.php';
 require_once __DIR__ . '/../lib/Sirprize/Invoiced/Discount/RuleInterface.php';
-
-require_once __DIR__ . '/../lib/Sirprize/Invoiced/Context/VatContext.php';
