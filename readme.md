@@ -2,7 +2,7 @@
 
 Totals, subtotals, linetotals, VAT-calculations and proper rounding for invoices.
 
-## More Info
+## Thanks
 
 See [Invoices: How to properly round and calculate totals](https://makandracards.com/makandra/1505-invoices-how-to-properly-round-and-calculate-totals)
 
@@ -13,9 +13,6 @@ See [Invoices: How to properly round and calculate totals](https://makandracards
 Discount resolver runs a set of custom rules in charge of figuring out an amount to subtract from a given product price.
 
 #### Defining a custom rule
-
-    use Sirprize\Invoiced\Discount\Resolver;
-    use Sirprize\Invoiced\Discount\RuleInterface;
 
     class TwentyPercentRule implements RuleInterface
     {
@@ -34,6 +31,9 @@ Discount resolver runs a set of custom rules in charge of figuring out an amount
 
 #### Running the rules
 
+    use Sirprize\Invoiced\Discount\Resolver;
+    use Sirprize\Invoiced\Discount\RuleInterface;
+
     $resolver = new Resolver(Resolver::BEST);
     $resolver->addRule(new TwentyPercentRule());
     $discountAmount = $resolver->getAmount($product->getPrice());
@@ -46,9 +46,13 @@ Discount resolver runs a set of custom rules in charge of figuring out an amount
     use Sirprize\Invoiced\LineItem;
 
     $lineItem = new LineItem(780, 19, true, 1); // $amount, $vatRate, $priceIncludesVat, $quantity
+
+    // line item totals
     $lineItemGrossTotal = $lineItem->getPrice()->getGrossAmount();
     $lineItemVatTotal = $lineItem->getPrice()->getVatAmount();
     $lineItemNetTotal = $lineItem->getPrice()->getNetAmount();
+
+    // unit
     $unitGrossAmount = $lineItem->getUnitPrice()->getGrossAmount();
     $unitVatAmount = $lineItem->getUnitPrice()->getVatAmount();
     $unitNetAmount = $lineItem->getUnitPrice()->getNetAmount();
@@ -80,6 +84,7 @@ A price summary is just a simple object holding the baseprice, the discount amou
     use Sirprize\Invoiced\SubTotal\PriceSummary;
 
     $priceSummary = new PriceSummary(1000, 220); // $baseAmount, $discountAmount
+
     $baseAmount = $priceSummary->getBaseAmount();
     $discountAmount = $priceSummary->getDiscountAmount();
     $finalAmount = $priceSummary->getFinalAmount();
@@ -89,6 +94,16 @@ A price summary is just a simple object holding the baseprice, the discount amou
     use Sirprize\Invoiced\SubTotal\LineItem as SubTotalLineItem;
 
     $lineItem = new SubTotalLineItem($priceSummary, 3); // $priceSummary, $quantity
+
+    // line item totals
+    $lineItemBaseAmount = $lineItem->getPriceSummary()->getBaseAmount();
+    $lineItemDiscountAmount = $lineItem->getPriceSummary()->getDiscountAmount();
+    $lineItemFinalAmount = $lineItem->getPriceSummary()->getFinalAmount();
+
+    // unit
+    $unitBaseAmount = $lineItem->getUnitPriceSummary()->getBaseAmount();
+    $unitDiscountAmount = $lineItem->getUnitPriceSummary()->getDiscountAmount();
+    $unitFinalAmount = $lineItem->getUnitPriceSummary()->getFinalAmount();
 
 #### Subtotal Sum
 
