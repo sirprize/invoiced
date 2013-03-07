@@ -8,6 +8,8 @@ See [Invoices: How to properly round and calculate totals](https://makandracards
 
 ## Usage
 
+Invoiced handles money amounts in cents.
+
 ### Discount Resolver
 
 Discount resolver runs a set of custom rules in charge of figuring out an amount to subtract from a given product price.
@@ -18,7 +20,7 @@ Discount resolver runs a set of custom rules in charge of figuring out an amount
     {
         protected $product = null;
 
-        public function __construct($product)
+        public function __construct(\Product $product)
         {
             $this->product = $product;
         }
@@ -34,8 +36,9 @@ Discount resolver runs a set of custom rules in charge of figuring out an amount
     use Sirprize\Invoiced\Discount\Resolver;
     use Sirprize\Invoiced\Discount\RuleInterface;
 
-    $resolver = new Resolver(Resolver::BEST);
-    $resolver->addRule(new TwentyPercentRule());
+    $product = new \Product(); // this can be anything really...
+    $resolver = new Resolver(Resolver::BEST); // the rule returning the biggest amount wins
+    $resolver->addRule(new TwentyPercentRule($product));
     $discountAmount = $resolver->getAmount($product->getPrice());
     $finalPrice = $product->getPrice() - $discountAmount;
 
@@ -75,7 +78,7 @@ Discount resolver runs a set of custom rules in charge of figuring out an amount
 
 ### Subtotals
 
-Invoices often feature all kinds of subtotals such as discounts, item totals, shipping and handling totals etc:
+Invoices often feature all kinds of subtotals such as discounts, items total, shipping and handling etc.
 
 #### Price Summary
 
@@ -107,7 +110,7 @@ A price summary is just a simple object holding the baseprice, the discount amou
 
 #### Subtotal Sum
 
-Price summaries are then added to line item and summed up
+Price summaries are then added to line items and summed up:
 
     use Sirprize\Invoiced\SubTotal\LineItem as SubTotalLineItem;
     use Sirprize\Invoiced\SubTotal\Sum as SubTotalSum;
