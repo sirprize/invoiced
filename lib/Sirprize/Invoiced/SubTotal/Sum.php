@@ -21,6 +21,7 @@ class Sum
     public function addLineItem(LineItem $lineItem)
     {
         $this->lineItems[] = $lineItem;
+
         return $this;
     }
 
@@ -34,8 +35,7 @@ class Sum
         $baseTotal = 0;
         $discountTotal = 0;
 
-        foreach($this->lineItems as $lineItem)
-        {
+        foreach ($this->lineItems as $lineItem) {
             $baseTotal += $lineItem->getPriceSummary()->getBaseAmount();
             $discountTotal += $lineItem->getPriceSummary()->getDiscountAmount();
         }

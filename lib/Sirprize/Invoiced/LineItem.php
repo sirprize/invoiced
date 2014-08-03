@@ -46,13 +46,11 @@ class LineItem
 
     public function getUnitPrice()
     {
-        if ($this->priceIncludesVat)
-        {
+        if ($this->priceIncludesVat) {
             $grossAmount = $this->amount;
             $vatAmount = $this->vatRate * $grossAmount / (100 + $this->vatRate);
             $netAmount = $grossAmount - $vatAmount;
-        }
-        else {
+        } else {
             $netAmount = $this->amount;
             $vatAmount = $this->vatRate * $netAmount / 100;
             $grossAmount = $netAmount + $vatAmount;
@@ -65,15 +63,14 @@ class LineItem
     {
         $unitPrice = $this->getUnitPrice();
 
-        if ($this->priceIncludesVat)
-        {
+        if ($this->priceIncludesVat) {
             return new Price(
                 $this->round($unitPrice->getGrossAmount() * $this->quantity),
                 $unitPrice->getVatAmount() * $this->quantity,
                 $unitPrice->getNetAmount() * $this->quantity
             );
         }
-        
+
         return new Price(
             $unitPrice->getGrossAmount() * $this->quantity,
             $unitPrice->getVatAmount() * $this->quantity,

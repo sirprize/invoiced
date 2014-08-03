@@ -8,8 +8,6 @@
 
 namespace Sirprize\Invoiced\Discount;
 
-use Sirprize\Invoiced\Context\PriceContextInterface;
-
 /**
  * Resolver finds applicable discount per unit of product.
  *
@@ -17,62 +15,54 @@ use Sirprize\Invoiced\Context\PriceContextInterface;
  */
 class Resolver
 {
-	const BEST = 'best';
-	const FIRST = 'first';
-	const CUMULATIVE = 'cumulative';
+    const BEST = 'best';
+    const FIRST = 'first';
+    const CUMULATIVE = 'cumulative';
 
-	protected $mode = null;
-	protected $rules = array();
+    protected $mode = null;
+    protected $rules = array();
 
-	public function __construct($mode = self::BEST, array $rules = array())
-	{
-		$this->mode = $mode;
+    public function __construct($mode = self::BEST, array $rules = array())
+    {
+        $this->mode = $mode;
 
-		foreach ($rules as $rule)
-		{
-			$this->addRule($rule);
-		}
-	}
+        foreach ($rules as $rule) {
+            $this->addRule($rule);
+        }
+    }
 
-	public function addRule(RuleInterface $rule)
-	{
-		$this->rules[] = $rule;
-		return $this;
-	}
+    public function addRule(RuleInterface $rule)
+    {
+        $this->rules[] = $rule;
 
-	public function getAmount($baseAmount)
-	{
-		$finalAmount = 0;
+        return $this;
+    }
 
-		foreach ($this->rules as $rule)
-		{
-			$amount = $rule->getAmount();
+    public function getAmount($baseAmount)
+    {
+        $finalAmount = 0;
 
-			if ($this->mode === self::BEST)
-			{
-				if ($amount > $finalAmount)
-				{
-					$finalAmount = $amount;
-				}
-			}
-			else if ($this->mode === self::FIRST)
-			{
-				if ($amount > 0)
-				{
-					return $this->checkAmount($amount, $baseAmount);
-				}
-			}
-			else if ($this->mode === self::CUMULATIVE)
-			{
-				$finalAmount += $amount;
-			}
-		}
+        foreach ($this->rules as $rule) {
+            $amount = $rule->getAmount();
 
-		return $this->checkAmount($finalAmount, $baseAmount);
-	}
+            if ($this->mode === self::BEST) {
+                if ($amount > $finalAmount) {
+                    $finalAmount = $amount;
+                }
+            } elseif ($this->mode === self::FIRST) {
+                if ($amount > 0) {
+                    return $this->checkAmount($amount, $baseAmount);
+                }
+            } elseif ($this->mode === self::CUMULATIVE) {
+                $finalAmount += $amount;
+            }
+        }
 
-	protected function checkAmount($discountAmount, $baseAmount)
-	{
-		return ($discountAmount > $baseAmount) ? $baseAmount : $discountAmount;
-	}
+        return $this->checkAmount($finalAmount, $baseAmount);
+    }
+
+    protected function checkAmount($discountAmount, $baseAmount)
+    {
+        return ($discountAmount > $baseAmount) ? $baseAmount : $discountAmount;
+    }
 }
