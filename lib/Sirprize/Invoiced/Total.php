@@ -21,16 +21,14 @@ class Total
 
     public function addLineItem(LineItem $lineItem)
     {
-        if ($this->pricesIncludeVat === null)
-        {
+        if ($this->pricesIncludeVat === null) {
             $this->pricesIncludeVat = $lineItem->getPriceIncludesVat();
-        }
-        else if ($this->pricesIncludeVat !== $lineItem->getPriceIncludesVat())
-        {
+        } elseif ($this->pricesIncludeVat !== $lineItem->getPriceIncludesVat()) {
             throw new \Exception("Lineitems in an invoice an either include VAT or not, but it must be the same for all items");
         }
 
         $this->lineItems[] = $lineItem;
+
         return $this;
     }
 
@@ -45,22 +43,22 @@ class Total
         $vatAmount = 0;
         $netAmount = 0;
 
-        foreach($this->lineItems as $lineItem)
-        {
+        foreach ($this->lineItems as $lineItem) {
             $grossAmount += $lineItem->getPrice()->getGrossAmount();
             $vatAmount += $lineItem->getPrice()->getVatAmount();
             $netAmount += $lineItem->getPrice()->getNetAmount();
         }
 
-        if ($this->pricesIncludeVat)
-        {
+        if ($this->pricesIncludeVat) {
             $grossAmount = $this->round($grossAmount);
             $vatAmount = $this->round($vatAmount);
+
             return new Price($grossAmount, $vatAmount, $grossAmount - $vatAmount);
         }
 
         $netAmount = $this->round($netAmount);
         $vatAmount = $this->round($vatAmount);
+
         return new Price($netAmount + $vatAmount, $vatAmount, $netAmount);
     }
 
