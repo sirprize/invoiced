@@ -33,8 +33,8 @@ Discount resolver runs a set of custom rules in charge of figuring out an amount
 
 #### Running the rules
 
-    use Sirprize\Invoiced\Discount\Resolver;
-    use Sirprize\Invoiced\Discount\RuleInterface;
+    use Sirprize\Invoiced\BasePrice\Discount\Resolver;
+    use Sirprize\Invoiced\BasePrice\Discount\RuleInterface;
 
     $product = new \Product(); // this can be anything really...
     $resolver = new Resolver(Resolver::BEST); // the rule returning the biggest amount wins
@@ -46,7 +46,7 @@ Discount resolver runs a set of custom rules in charge of figuring out an amount
 
 #### Invoice Line Item
 
-    use Sirprize\Invoiced\LineItem;
+    use Sirprize\Invoiced\VatPrice\LineItem;
 
     $lineItem = new LineItem(780, 19, true, 1); // $amount, $vatRate, $priceIncludesVat, $quantity
 
@@ -60,72 +60,72 @@ Discount resolver runs a set of custom rules in charge of figuring out an amount
     $unitVatAmount = $lineItem->getUnitPrice()->getVatAmount();
     $unitNetAmount = $lineItem->getUnitPrice()->getNetAmount();
 
-#### Invoice Total
+#### Invoice Sum
 
-    use Sirprize\Invoiced\LineItem;
-    use Sirprize\Invoiced\Total;
+    use Sirprize\Invoiced\VatPrice\LineItem;
+    use Sirprize\Invoiced\VatPrice\Sum;
 
-    $total = new Total();
+    $sum = new Sum();
 
-    $total
+    $sum
         ->addLineItem(new LineItem(780, 19, true, 1))
         ->addLineItem(new LineItem(2500, 7, true, 1))
     ;
 
-    $grossTotalAmount = $total->getPrice()->getGrossAmount();
-    $vatTotalAmount = $total->getPrice()->getVatAmount();
-    $netTotalAmount = $total->getPrice()->getNetAmount();
+    $grossTotalAmount = $sum->getPrice()->getGrossAmount();
+    $vatTotalAmount = $sum->getPrice()->getVatAmount();
+    $netTotalAmount = $sum->getPrice()->getNetAmount();
 
 ### Subtotals
 
 Invoices often feature all kinds of subtotals such as discounts, items total, shipping and handling etc.
 
-#### Price Summary
+#### Base Price
 
-A price summary is just a simple object holding the baseprice, the discount amount and the final price of a product:
+A base price is just a simple object holding the baseprice, the discount amount and the final price of a product:
 
-    use Sirprize\Invoiced\SubTotal\PriceSummary;
+    use Sirprize\Invoiced\BasePrice\Price;
 
-    $priceSummary = new PriceSummary(1000, 220); // $baseAmount, $discountAmount
+    $price = new Price(1000, 220); // $baseAmount, $discountAmount
 
-    $baseAmount = $priceSummary->getBaseAmount();
-    $discountAmount = $priceSummary->getDiscountAmount();
-    $finalAmount = $priceSummary->getFinalAmount();
+    $baseAmount = $price->getBaseAmount();
+    $discountAmount = $price->getDiscountAmount();
+    $finalAmount = $price->getFinalAmount();
 
-#### Subtotal Line Item
+#### Base Price Line Item
     
-    use Sirprize\Invoiced\SubTotal\LineItem as SubTotalLineItem;
+    use Sirprize\Invoiced\BasePrice\LineItem;
 
-    $lineItem = new SubTotalLineItem($priceSummary, 3); // $priceSummary, $quantity
+    $lineItem = new LineItem($price, 3); // $price, $quantity
 
     // line item totals
-    $lineItemBaseAmount = $lineItem->getPriceSummary()->getBaseAmount();
-    $lineItemDiscountAmount = $lineItem->getPriceSummary()->getDiscountAmount();
-    $lineItemFinalAmount = $lineItem->getPriceSummary()->getFinalAmount();
+    $lineItemBaseAmount = $lineItem->getPrice()->getBaseAmount();
+    $lineItemDiscountAmount = $lineItem->getPrice()->getDiscountAmount();
+    $lineItemFinalAmount = $lineItem->getPrice()->getFinalAmount();
 
     // unit
-    $unitBaseAmount = $lineItem->getUnitPriceSummary()->getBaseAmount();
-    $unitDiscountAmount = $lineItem->getUnitPriceSummary()->getDiscountAmount();
-    $unitFinalAmount = $lineItem->getUnitPriceSummary()->getFinalAmount();
+    $unitBaseAmount = $lineItem->getUnitPrice()->getBaseAmount();
+    $unitDiscountAmount = $lineItem->getUnitPrice()->getDiscountAmount();
+    $unitFinalAmount = $lineItem->getUnitPrice()->getFinalAmount();
 
-#### Subtotal Sum
+#### Base Price Sum
 
-Price summaries are then added to line items and summed up:
+Base prices are then added to line items and summed up:
 
-    use Sirprize\Invoiced\SubTotal\LineItem as SubTotalLineItem;
-    use Sirprize\Invoiced\SubTotal\Sum as SubTotalSum;
-    use Sirprize\Invoiced\SubTotal\PriceSummary;
+    use Sirprize\Invoiced\BasePrice\LineItem;
+    use Sirprize\Invoiced\BasePrice\Sum;
+    use Sirprize\Invoiced\BasePrice\Price;
 
-    $subTotalSum = new SubTotalSum();
+    $sum = new Sum();
 
-    $subTotalSum
-        ->addLineItem(new SubTotalLineItem(new PriceSummary(1000, 220), 3))
-        ->addLineItem(new SubTotalLineItem(new PriceSummary(3000, 500), 10))
+    $sum
+        ->addLineItem(new LineItem(new Price(1000, 220), 3))
+        ->addLineItem(new LineItem(new Price(3000, 500), 10))
     ;
 
-    $baseTotalAmount = $subTotalSum->getPriceSummary()->getBaseAmount();
-    $discountTotalAmount = $subTotalSum->getPriceSummary()->getDiscountAmount();
-    $finalTotalAmount = $subTotalSum->getPriceSummary()->getFinalAmount();
+    $baseTotalAmount = $sum->getPrice()->getBaseAmount();
+    $discountTotalAmount = $sum->getPrice()->getDiscountAmount();
+    $finalTotalAmount = $sum->getPrice()->getFinalAmount();
 
 ## License
 

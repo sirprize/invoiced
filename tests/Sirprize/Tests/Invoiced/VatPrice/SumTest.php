@@ -6,12 +6,12 @@
  * (c) Christian Hoegl <chrigu@sirprize.me>
  */
 
-namespace Sirprize\Tests\Invoiced;
+namespace Sirprize\Tests\Invoiced\VatPrice;
 
-use Sirprize\Invoiced\LineItem;
-use Sirprize\Invoiced\Total;
+use Sirprize\Invoiced\VatPrice\LineItem;
+use Sirprize\Invoiced\VatPrice\Sum;
 
-class TotalTest extends \PHPUnit_Framework_TestCase
+class SumTest extends \PHPUnit_Framework_TestCase
 {
     // gross, net, vat
     // 780, 655.46218487394958, 124.53781512605042

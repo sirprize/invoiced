@@ -6,15 +6,15 @@
  * (c) Christian Hoegl <chrigu@sirprize.me>
  */
 
-namespace Sirprize\Invoiced\SubTotal;
+namespace Sirprize\Invoiced\BasePrice;
 
 /**
- * PriceSummaryInterface.
+ * PriceInterface.
  *
  * @author Christian Hoegl <chrigu@sirprize.me>
  */
 
-interface PriceSummaryInterface
+interface PriceInterface
 {
     public function getBaseAmount($cents = true);
     public function getDiscountAmount($cents = true);

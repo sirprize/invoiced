@@ -8,14 +8,14 @@
 
 define('DELTA', 0.0000001);
 
-require_once __DIR__ . '/../lib/Sirprize/Invoiced/LineItem.php';
-require_once __DIR__ . '/../lib/Sirprize/Invoiced/Total.php';
-require_once __DIR__ . '/../lib/Sirprize/Invoiced/Price.php';
+require_once __DIR__ . '/../lib/Sirprize/Invoiced/VatPrice/LineItem.php';
+require_once __DIR__ . '/../lib/Sirprize/Invoiced/VatPrice/Sum.php';
+require_once __DIR__ . '/../lib/Sirprize/Invoiced/VatPrice/Price.php';
 
-require_once __DIR__ . '/../lib/Sirprize/Invoiced/SubTotal/LineItem.php';
-require_once __DIR__ . '/../lib/Sirprize/Invoiced/SubTotal/Sum.php';
-require_once __DIR__ . '/../lib/Sirprize/Invoiced/SubTotal/PriceSummaryInterface.php';
-require_once __DIR__ . '/../lib/Sirprize/Invoiced/SubTotal/PriceSummary.php';
+require_once __DIR__ . '/../lib/Sirprize/Invoiced/BasePrice/LineItem.php';
+require_once __DIR__ . '/../lib/Sirprize/Invoiced/BasePrice/Sum.php';
+require_once __DIR__ . '/../lib/Sirprize/Invoiced/BasePrice/PriceInterface.php';
+require_once __DIR__ . '/../lib/Sirprize/Invoiced/BasePrice/Price.php';
 
-require_once __DIR__ . '/../lib/Sirprize/Invoiced/Discount/Resolver.php';
-require_once __DIR__ . '/../lib/Sirprize/Invoiced/Discount/RuleInterface.php';
+require_once __DIR__ . '/../lib/Sirprize/Invoiced/BasePrice/Discount/Resolver.php';
+require_once __DIR__ . '/../lib/Sirprize/Invoiced/BasePrice/Discount/RuleInterface.php';

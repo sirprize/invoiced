@@ -6,7 +6,7 @@
  * (c) Christian Hoegl <chrigu@sirprize.me>
  */
 
-namespace Sirprize\Invoiced\SubTotal;
+namespace Sirprize\Invoiced\BasePrice;
 
 /**
  * Sum sums up a set of subtotal-lineitems.
@@ -29,17 +29,17 @@ class Sum
         return $this->lineItems;
     }
 
-    public function getPriceSummary()
+    public function getPrice()
     {
         $baseTotal = 0;
         $discountTotal = 0;
 
         foreach($this->lineItems as $lineItem)
         {
-            $baseTotal += $lineItem->getPriceSummary()->getBaseAmount();
-            $discountTotal += $lineItem->getPriceSummary()->getDiscountAmount();
+            $baseTotal += $lineItem->getPrice()->getBaseAmount();
+            $discountTotal += $lineItem->getPrice()->getDiscountAmount();
         }
 
-        return new PriceSummary($baseTotal, $discountTotal);
+        return new Price($baseTotal, $discountTotal);
     }
 }

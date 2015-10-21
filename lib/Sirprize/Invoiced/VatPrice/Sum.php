@@ -6,15 +6,15 @@
  * (c) Christian Hoegl <chrigu@sirprize.me>
  */
 
-namespace Sirprize\Invoiced;
+namespace Sirprize\Invoiced\VatPrice;
 
 /**
- * Total represents an invoice total with proper rounding.
+ * Sum represents an invoice total with proper rounding.
  *
  * @author Christian Hoegl <chrigu@sirprize.me>
  */
 
-class Total
+class Sum
 {
     protected $lineItems = array();
     protected $pricesIncludeVat = null;

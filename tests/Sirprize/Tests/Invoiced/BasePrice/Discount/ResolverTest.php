@@ -6,10 +6,10 @@
  * (c) Christian Hoegl <chrigu@sirprize.me>
  */
 
-namespace Sirprize\Tests\Invoiced\Discount;
+namespace Sirprize\Tests\Invoiced\BasePrice\Discount;
 
-use Sirprize\Invoiced\Discount\Resolver;
-use Sirprize\Invoiced\Discount\RuleInterface;
+use Sirprize\Invoiced\BasePrice\Discount\Resolver;
+use Sirprize\Invoiced\BasePrice\Discount\RuleInterface;
 
 class HundredRule implements RuleInterface
 {

@@ -6,15 +6,15 @@
  * (c) Christian Hoegl <chrigu@sirprize.me>
  */
 
-namespace Sirprize\Invoiced\SubTotal;
+namespace Sirprize\Invoiced\BasePrice;
 
 /**
- * PriceSummary represents a summary of the various amounts making up a price.
+ * Price represents a summary of the various amounts making up a price.
  *
  * @author Christian Hoegl <chrigu@sirprize.me>
  */
 
-class PriceSummary implements PriceSummaryInterface
+class Price implements PriceInterface
 {
     protected $baseAmount = 0;
     protected $discountAmount = 0;

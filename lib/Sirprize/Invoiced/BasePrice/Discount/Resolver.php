@@ -6,9 +6,9 @@
  * (c) Christian Hoegl <chrigu@sirprize.me>
  */
 
-namespace Sirprize\Invoiced\Discount;
+namespace Sirprize\Invoiced\BasePrice\Discount;
 
-use Sirprize\Invoiced\Context\PriceContextInterface;
+use Sirprize\Invoiced\Context\PricingContextInterface;
 
 /**
  * Resolver finds applicable discount per unit of product.
@@ -38,6 +38,11 @@ class Resolver
 	{
 		$this->rules[] = $rule;
 		return $this;
+	}
+
+	public function getRules()
+	{
+		return $this->rules;
 	}
 
 	public function getAmount($baseAmount)
