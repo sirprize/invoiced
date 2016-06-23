@@ -44,12 +44,24 @@ class Sum
         $grossAmount = 0;
         $vatAmount = 0;
         $netAmount = 0;
+        $sumsPerVatRate = array();
 
         foreach($this->lineItems as $lineItem)
         {
             $grossAmount += $lineItem->getPrice()->getGrossAmount();
-            $vatAmount += $lineItem->getPrice()->getVatAmount();
             $netAmount += $lineItem->getPrice()->getNetAmount();
+
+            if (!array_key_exists($lineItem->getVatRate(), $sumsPerVatRate))
+            {
+                $sumsPerVatRate[$lineItem->getVatRate()] = 0; 
+            }
+
+            $sumsPerVatRate[$lineItem->getVatRate()] += $lineItem->getPrice()->getVatAmount();
+        }
+
+        foreach($sumsPerVatRate as $sum)
+        {
+            $vatAmount += $this->round($sum);
         }
 
         if ($this->pricesIncludeVat)
