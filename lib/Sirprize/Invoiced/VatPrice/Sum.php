@@ -50,13 +50,14 @@ class Sum
         {
             $grossAmount += $lineItem->getPrice()->getGrossAmount();
             $netAmount += $lineItem->getPrice()->getNetAmount();
+            $i = (string) $lineItem->getVatRate();
 
-            if (!array_key_exists($lineItem->getVatRate(), $sumsPerVatRate))
+            if (!array_key_exists($i, $sumsPerVatRate))
             {
-                $sumsPerVatRate[$lineItem->getVatRate()] = 0; 
+                $sumsPerVatRate[$i] = 0; 
             }
 
-            $sumsPerVatRate[$lineItem->getVatRate()] += $lineItem->getPrice()->getVatAmount();
+            $sumsPerVatRate[$i] += $lineItem->getPrice()->getVatAmount();
         }
 
         foreach($sumsPerVatRate as $sum)
