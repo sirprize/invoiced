@@ -50,7 +50,7 @@ class Sum
         {
             $grossAmount += $lineItem->getPrice()->getGrossAmount();
             $netAmount += $lineItem->getPrice()->getNetAmount();
-            $i = (string) $lineItem->getVatRate();
+            $i = (int) $lineItem->getVatRate() * 100;
 
             if (!array_key_exists($i, $sumsPerVatRate))
             {
