@@ -10,6 +10,7 @@ namespace Sirprize\Tests\Invoiced\BasePrice\Discount;
 
 use Sirprize\Invoiced\BasePrice\Discount\Resolver;
 use Sirprize\Invoiced\BasePrice\Discount\RuleInterface;
+use PHPUnit\Framework\TestCase;
 
 class HundredRule implements RuleInterface
 {
@@ -27,7 +28,7 @@ class FiftyRule implements RuleInterface
     }
 }
 
-class ResolverTest extends \PHPUnit_Framework_TestCase
+class ResolverTest extends TestCase
 {
     public function testBest()
     {

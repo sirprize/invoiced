@@ -13,8 +13,9 @@ use Sirprize\Invoiced\VatPrice\Sum as VatPriceSum;
 use Sirprize\Invoiced\BasePrice\LineItem as BasePriceLineItem;
 use Sirprize\Invoiced\BasePrice\Sum as BasePriceSum;
 use Sirprize\Invoiced\BasePrice\Price as BasePrice;
+use PHPUnit\Framework\TestCase;
 
-class SumTest extends \PHPUnit_Framework_TestCase
+class SumTest extends TestCase
 {
     public function testCompareTotals()
     {

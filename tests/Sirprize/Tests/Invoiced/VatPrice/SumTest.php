@@ -10,8 +10,9 @@ namespace Sirprize\Tests\Invoiced\VatPrice;
 
 use Sirprize\Invoiced\VatPrice\LineItem;
 use Sirprize\Invoiced\VatPrice\Sum;
+use PHPUnit\Framework\TestCase;
 
-class SumTest extends \PHPUnit_Framework_TestCase
+class SumTest extends TestCase
 {
     public function testPricesIncludeVat()
     {
